@@ -1,13 +1,16 @@
 from django.contrib.auth.hashers import make_password
 from django.core.management.base import BaseCommand
 
-from users.models import CustomUser
+from usersapp.models import CustomUser
 
 
 class Command(BaseCommand):
     help = "Создание базовых пользователей"
 
     def handle(self, *args, **options):
+        # Удаляем все пользоватлелей
+        CustomUser.objects.all().delete()
+
         # Создание суперпользователя
         # User.objects.create_superuser(username='admin', email='admin@totonotes.ru', password='masteradmin')
         # CustomUser.objects.create_superuser(username='admin', email='admin@totonotes.ru', password='masteradmin')
@@ -20,6 +23,9 @@ class Command(BaseCommand):
         )
 
         # Сощдание пользователей
+        # user_count = options['count']
+        # for i in range(user_count):
+        #     CustomUser.objects.create_user(f'user{i}', f'user{i}@test.com', '123321')
         CustomUser.objects.create(username="user001", first_name="001", last_name="u", email="user001@totonotes.ru")
         CustomUser.objects.create(username="user002", first_name="002", last_name="u", email="user002@totonotes.ru")
         CustomUser.objects.create(username="user003", first_name="003", last_name="u", email="user003@totonotes.ru")
