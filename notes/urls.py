@@ -17,10 +17,15 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
+from camel_test.views import CustomCamelModelViewSet
+from todoapp.views import ProjectModelViewSet, ToDoModelViewSet
 from usersapp.views import CustomUserModelViewSet
 
 router = DefaultRouter()
 router.register("usersapp", CustomUserModelViewSet)
+router.register("projectapp", ProjectModelViewSet)
+router.register("todoapp", ToDoModelViewSet)
+router.register("camel_test", CustomCamelModelViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

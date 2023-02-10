@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "bootstrap3",
     "usersapp",
+    "todoapp",
+    "camel_test",
 ]
 
 MIDDLEWARE = [
@@ -144,3 +146,10 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "usersapp.CustomUser"
+
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ]
+}
