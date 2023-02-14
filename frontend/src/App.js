@@ -15,7 +15,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get(`${API_URL}/users`)
+    axios.get(`${API_URL}/usersapp`)
     .then(response => {
       const users = response.data
         this.setState(
