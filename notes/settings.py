@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_filters",
     "corsheaders",
     "bootstrap3",
     "usersapp",
@@ -70,18 +71,23 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
-        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
-        "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
+        ##  snake_case to camelCase
+        # "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        # "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
     ],
-    "DEFAULT_PARSER_CLASSES": [
-        # If you use MultiPartFormParser or FormParser, we also have a camel case version
-        "djangorestframework_camel_case.parser.CamelCaseFormParser",
-        "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
-        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
-        # Any other parsers
-    ],
+    # "DEFAULT_PARSER_CLASSES": [
+    #     ##  snake_case to camelCase
+    #     # # If you use MultiPartFormParser or FormParser, we also have a camel case version
+    #     # "djangorestframework_camel_case.parser.CamelCaseFormParser",
+    #     # "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
+    #     # "djangorestframework_camel_case.parser.CamelCaseJSONParser",
+    #     # Any other parsers
+    # ],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
 }
 
 ROOT_URLCONF = "notes.urls"
