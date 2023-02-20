@@ -8,7 +8,8 @@
 - djangorestframework-3.14.0;
 - markdown-3.4.1;
 - django-filter-22.1;
-- nodejs_18.14.0;
+- nodejs_18.14.1;
+- react-router-dom-6.8.1;
 - django-cors-headers-3.13.0;
 - django-bootstrap3-22.2;
 - djangorestframework-camel-case-1.4.0;

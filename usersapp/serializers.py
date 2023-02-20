@@ -8,6 +8,7 @@ class CustomUserModelSerializer(ModelSerializer):
         model = CustomUser
         # fields = '__all__'
         fields = (
+            "id",
             "username",
             "first_name",
             "last_name",

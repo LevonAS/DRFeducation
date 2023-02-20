@@ -3,15 +3,17 @@
 
 
 from rest_framework import mixins
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import GenericViewSet
 
 from .models import CustomUser
 from .serializers import CustomUserModelSerializer
 
 
-class CustomUserLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 4
+class CustomUserPagination(PageNumberPagination):
+    # default_limit = 4
+    page_size = 4
+    page_size_query_param = "page_size"
 
 
 # class CustomUserModelViewSet(ModelViewSet):
@@ -24,4 +26,4 @@ class CustomUserModelViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
     # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserModelSerializer
-    pagination_class = CustomUserLimitOffsetPagination
+    pagination_class = CustomUserPagination
