@@ -10,6 +10,7 @@ import Menu from './components/menu.js'
 import HomePage from './components/homepage.js'
 import Footer from './components/footer.js'
 import NotFound404 from './components/NotFound404.js'
+// eslint-disable-next-line
 import { HashRouter, BrowserRouter, Switch, Routes, Route, Link, NavLink, Redirect, Navigate } from "react-router-dom"
 
 const API_URL = 'http://127.0.0.1:8000/api'
