@@ -12,10 +12,10 @@ const ProjectItem = ({ item, usersSS }) => {
       </td>
       <td>
         {item.users.map((userID) => {
-          let user = usersSS.find((u) => u.id == userID)
+          let user = usersSS.find((u) => u.id === userID)
           if (user) {
             return user.username
-          }
+          } return false
         })}
       </td>
       <td>
@@ -29,7 +29,7 @@ const ProjectSingle = ({ projects, usersSS }) => {
   // console.log("itemId_1",useParams())
   let itemId = useParams()
   // console.log("itemId_2", itemId, itemId.id  )
-  // console.log("itemid_3", projects.filter((item) => item.id == 2) )
+  // console.log("itemid_3", projects.filter((item) => item.id === 2) )
   let filter_projects = projects.filter((item) => item.id === +itemId.id)
   // console.log("filter_projects", filter_projects )
   return (

@@ -14,10 +14,10 @@ const ProjectItem = ({ project, usersSS }) => {
       </td>
       <td>
         {project.users.map((userID) => {
-          let user = usersSS.find((u) => u.id == userID)
+          let user = usersSS.find((u) => u.id === userID)
           if (user) {
             return user.username
-          }
+          } return false
         })}
       </td>
       {/* <td>

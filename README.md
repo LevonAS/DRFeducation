@@ -8,6 +8,7 @@
 - djangorestframework-3.14.0;
 - markdown-3.4.1;
 - django-filter-22.1;
+- djangorestframework-simplejwt-5.2.2 pyjwt-2.6.0;
 - nodejs_18.14.1;
 - react-router-dom-6.8.1;
 - django-cors-headers-3.13.0;
