@@ -4,10 +4,16 @@
 
 from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import BasePermission
 from rest_framework.viewsets import GenericViewSet
 
 from .models import CustomUser
 from .serializers import CustomUserModelSerializer
+
+
+class StaffOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_staff
 
 
 class CustomUserPagination(PageNumberPagination):
@@ -24,6 +30,15 @@ class CustomUserPagination(PageNumberPagination):
 
 class CustomUserModelViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, GenericViewSet):
     # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    # permission_classes = [AllowAny]
+    # permission_classes = [IsAdminUser]
+    # permission_classes = [StaffOnly]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserModelSerializer
     pagination_class = CustomUserPagination
+
+
+# {
+#     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3NzE1OTQ5MSwiaWF0IjoxNjc3MDczMDkxLCJqdGkiOiJkMTRmZjViNmM5MjM0ZjBjYTdkMWZjYWZhMjU5YjdkNCIsInVzZXJfaWQiOjl9.VHIjr8fY9_qsf_3tY7Dg8aKsn_eTj7OVDwaqpqm5b-c",
+#     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3MDczMzkxLCJpYXQiOjE2NzcwNzMwOTEsImp0aSI6ImQ4ZGEzZjQ3YzQzMzQwNTJhNTE5ZGZjYTdiN2JmMjM4IiwidXNlcl9pZCI6OX0.2YCYmhYU7eEZfcfCJq69n0XhNIlGCLhONA0wvMkPYYA"
+# }
