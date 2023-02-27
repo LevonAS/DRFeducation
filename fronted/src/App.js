@@ -10,6 +10,8 @@ import Menu from './components/menu.js'
 import HomePage from './components/homepage.js'
 import Footer from './components/footer.js'
 import NotFound404 from './components/NotFound404.js'
+import LoginForm from './components/Auth.js'
+import Cookies from "universal-cookie";
 // eslint-disable-next-line
 import { HashRouter, BrowserRouter, Switch, Routes, Route, Link, NavLink, Redirect, Navigate } from "react-router-dom"
 
@@ -27,12 +29,16 @@ class App extends React.Component {
     super(props)
     this.state = {
       'users': [],
-      'projects': []
+      'projects': [],
+      'todos': [],
+      'token': '',
+      'loginUser': '',
     }
   }
-  componentDidMount() {
-    
-    axios.get(`${API_URL}/usersapp${PAGE_SIZE}`)
+
+  load_data() {
+    const headers = this.get_headers()
+    axios.get(`${API_URL}/usersapp${PAGE_SIZE}`, { headers })
       .then(response => {
         // console.log("rd_1", +response.data.count)
         // console.log("rd_2", response.data.results)
@@ -45,7 +51,7 @@ class App extends React.Component {
         )
       }).catch(error => console.log(error))
 
-    axios.get(`${API_URL}/projectapp${PAGE_SIZE}`)
+    axios.get(`${API_URL}/projectapp${PAGE_SIZE}`, { headers })
       .then(response => {
         const projects = response.data.results
         this.setState(
@@ -55,7 +61,7 @@ class App extends React.Component {
         )
       }).catch(error => console.log(error))
 
-    axios.get(`${API_URL}/todoapp${PAGE_SIZE}`)
+    axios.get(`${API_URL}/todoapp${PAGE_SIZE}`, { headers })
       .then(response => {
         const todos = response.data.results
         this.setState(
@@ -66,10 +72,77 @@ class App extends React.Component {
       }).catch(error => console.log(error))
   }
 
+  set_token(token) {
+    let cookies = new Cookies()
+    cookies.set('token', token)
+    console.log("app_4", cookies)
+    this.setState({ 'token': token }, () => this.load_data())
+  }
+  get_token(username, password) {
+    // console.log("app_1", username, password)    
+    const data = { username: username, password: password }
+    axios.post('http://127.0.0.1:8000/api-token-auth/', data).then(response => {
+      console.log("app_3", response.data)
+      this.set_token(response.data['token'])
+    }).catch(error => alert('Неверный пароль или логин'))
+    this.setState({ 'loginUser': username })
+    // console.log("app_2", this.state.username)
+  }
+
+  is_auth() {
+    return !!this.state.token
+  }
+  get_headers() {
+    let headers = {
+      'Content-Type': 'applications/json'
+    }
+    if (this.is_auth()) {
+      headers['Authorization'] = 'Token ' + this.state.token
+    }
+    return headers
+  }
+
+  get_token_from_storage() {
+    const cookies = new Cookies()
+    const token = cookies.get('token')
+    this.setState({ 'token': token }, () => this.load_data())
+  }
+
+  get_token_from_cookies() {
+    const cookies = new Cookies()
+    const token = cookies.get('token')
+
+    this.setState({ 'token': token }, () => this.load_data())
+  }
+
+  logout() {
+    this.set_token('')
+    this.setState({ 'authors': [] }, () => this.load_data())
+    this.setState({ 'books': [] }, () => this.load_data())
+    this.setState({ 'token': '' }, () => this.load_data())
+    this.setState({ 'loginuser': '' }, () => this.load_data())
+  }
+
+  login() {
+    console.log("rd_4")
+    window.location.assign('/login')
+    // Location.href = 'http://192.168.42.140:3000/login'
+    console.log("rd_5")
+  }
+
+  componentDidMount() {
+    this.get_token_from_cookies()
+  }
+
 
   render() {
     return (
       <div className="App">
+        <div>
+          <p>{this.state.loginUser}</p>
+          {this.is_auth() ? <button onClick={() => this.logout()}>Logout </button> :
+            <button type="submit" onClick={() => this.login()}>Login </button>}
+        </div>
         <BrowserRouter>
           <div className="menu">
             <Menu />
@@ -82,8 +155,10 @@ class App extends React.Component {
             <Route path='/projects/:id' element={
               <ProjectSingle projects={this.state.projects} usersSS={this.state.usersSS} />} />
             <Route path='/todo' element={
-              <ToDoList todos={this.state.todos} users={this.state.users} />} />
+              <ToDoList todos={this.state.todos} />} />
             <Route path="*" element={<NotFound404 />} />
+            <Route exact path='/login' element={<LoginForm
+              get_token={(username, password) => this.get_token(username, password)} />} />
             {/* Redirects */}
             <Route path='/home' element={<Navigate to='/' />} />
             <Route path='/user' element={<Navigate to='/users' />} />
@@ -98,67 +173,6 @@ class App extends React.Component {
     )
   }
 
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <BrowserRouter>
-  //         <nav>
-  //           <ul>
-  //             <li>
-  //               <Link to='/'>Home</Link>
-  //             </li>
-  //             <li>
-  //               <Link to='/users'>All users</Link>
-  //             </li>
-  //             <li>
-  //               <Link to='/projects'>Projects</Link>
-  //             </li>
-  //             <li>
-  //               <Link to='/todo'>ToDo</Link>
-  //             </li>
-  //           </ul>
-  //         </nav>
-  //         <Switch>
-  //           <Route exact path='/' component={() => <HomePage />} />
-  //           <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
-  //           <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
-  //           <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} />} />
-  //           <Redirect from='/home' to='/' />
-  //           <Redirect from='/user' to='/users' />
-  //           <Redirect from='/project' to='/projects' />
-  //           <Redirect from='/todos' to='/todo' /> 
-  //           <Route component={NotFound404} />
-  //         </Switch>
-  //         <div class="footer">
-  //           <Footer />
-  //         </div>
-  //       </BrowserRouter>
-
-  //     </div>
-  //   )
-  // }
-
-  // render() {
-  //   return (
-  //     <div>
-  //       <div class="menu">
-  //         <Menu />
-  //       </div>
-  //       <div class="list users">
-  //         <UserList users={this.state.users} />
-  //       </div>
-  //       <div class="list projects">
-  //         <ProjectList projects={this.state.projects} />
-  //       </div>
-  //       <div class="list ToDo">
-  //         <ToDoList todos={this.state.todos} />
-  //       </div>
-  //       <div class="footer">
-  //         <Footer />
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
 }
 
