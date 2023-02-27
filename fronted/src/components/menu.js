@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from "react-router-dom"
 
+
 const activeStyle = ({ isActive }) => ({ color: isActive ? 'var(--color-active)' : 'blue' })
 
 const Menu = () => (

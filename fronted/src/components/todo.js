@@ -1,6 +1,6 @@
 import React from "react";
 
-const ToDoItem = ({ todo, usersSS }) => {
+const ToDoItem = ({ todo }) => {
   return (
     <tr>
       {/* <td>
@@ -19,8 +19,8 @@ const ToDoItem = ({ todo, usersSS }) => {
   )
 }
 
-const ToDoList = ({ todos, usersSS }) => {
-  console.log("itemId_1", todos)
+const ToDoList = ({ todos }) => {
+  // console.log("itemId_1", todos)
   return (
     <table>
       {/* <th>
@@ -35,7 +35,7 @@ const ToDoList = ({ todos, usersSS }) => {
       <th>
         Creator
       </th>
-      {todos?.map((todo_) => <ToDoItem todo={todo_} usersSS={usersSS} />)}
+      {todos?.map((todo_) => <ToDoItem todo={todo_} />)}
     </table>
   )
 }
