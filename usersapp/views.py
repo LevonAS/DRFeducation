@@ -35,7 +35,7 @@ class CustomUserModelViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
     # permission_classes = [StaffOnly]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserModelSerializer
-    pagination_class = CustomUserPagination
+    # pagination_class = CustomUserPagination
 
 
 # {
