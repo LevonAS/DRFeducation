@@ -9,7 +9,7 @@ class Project(models.Model):
     repository = models.URLField(blank=True)
 
     def __str__(self):
-        return self.name
+        return f"PNmame: {self.name} PUsers: {self.users}"
 
 
 class ToDo(models.Model):
@@ -19,3 +19,6 @@ class ToDo(models.Model):
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.project} {self.text} {self.creator}"
