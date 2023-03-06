@@ -14,6 +14,7 @@
 - django-cors-headers-3.13.0;
 - django-bootstrap3-22.2;
 - djangorestframework-camel-case-1.4.0;
+- drf_yasg-1.21.5-py3;
 - python 3.10;
 - vUbuntu Server 22_04.
 
