@@ -8,7 +8,7 @@ from rest_framework.permissions import BasePermission
 from rest_framework.viewsets import GenericViewSet
 
 from .models import CustomUser
-from .serializers import CustomUserModelSerializer
+from .serializers import CustomUserFullModelSerializer, CustomUserModelSerializer
 
 
 class StaffOnly(BasePermission):
@@ -35,7 +35,12 @@ class CustomUserModelViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
     # permission_classes = [StaffOnly]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserModelSerializer
-    # pagination_class = CustomUserPagination
+    pagination_class = CustomUserPagination
+
+    def get_serializer_class(self):
+        if self.request.version == "2.0":
+            return CustomUserFullModelSerializer
+        return CustomUserModelSerializer
 
 
 # {
