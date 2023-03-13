@@ -15,7 +15,7 @@
 - django-bootstrap3-22.2;
 - djangorestframework-camel-case-1.4.0;
 - drf_yasg-1.21.5-py3, pyyaml-6.0;
-- graphene-django-3.0.0;
+- graphene-django-3.0.0, graphene==3.2.1;
 - python 3.10;
 - vUbuntu Server 22_04.
 
