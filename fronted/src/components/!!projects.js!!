@@ -1,0 +1,96 @@
+import React from "react";
+import { Link } from "react-router-dom"
+
+const ProjectItem = ({ project, usersSS, deleteProject }) => {
+  return (
+    <tr>
+      <td>
+        {project.id}
+      </td>
+      <td>
+        <Link to={`/projects/${project.id}`}>
+          {project.name}
+        </Link>
+      </td>
+      <td>
+        {project.users.map((userID) => {
+          let user = usersSS.find((u) => u.id === userID)
+          if (user) {
+            return user.username
+          } return false
+        })}
+      </td>
+      {/* <td>
+        {project.repository}
+      </td> */}
+      <td><button onClick={() => deleteProject(project.id)}
+        type='button'> Delete project</button>
+      </td>
+    </tr>
+  )
+}
+
+
+// handleChange() {
+//   None
+// }
+// const searchData = (event) => { 
+//   console.log("p_1", event, projects )   
+//   const pr = projects.filter(item => item.name.toLowerCase().indexOf(event.toLowerCase()) !== -1)
+//   console.log("p_2", pr )
+//   return (
+//     <div>
+//       <input type="text" placeholder="Search somethingt   "
+//         onChange={(event) => searchData(event.target.value)} />
+//       <button >Find project</button>
+//     </div>
+//   )
+
+// }
+
+var aaa = [];
+console.log("p_1", aaa)
+
+let bbb = [];
+console.log("p_2", bbb)
+
+var ccc = [];
+console.log("p_3", window.ccc)
+
+const ProjectsList = ({ projects, usersSS, deleteProject }) => {
+
+  // p === window.p;
+  // const searchData = (event) => {
+  //   const pr = projects.filter(item => item.name.toLowerCase().indexOf(event.toLowerCase()) !== -1)
+  //   console.log("p_2", pr)
+    return (
+      <div>
+        {/* <div>
+          <input type="text" placeholder="Search somethingt   "
+            onChange={(event) => searchData(event.target.value)} />
+          <button >Find project</button>
+        </div> */}
+        <table>
+          <th>
+            ID
+          </th>
+          <th>
+            Project Name
+          </th>
+          <th>
+            Сreators
+          </th>
+          {/* <th>
+        Url repository
+      </th> */}
+          {projects?.map((project_) => <ProjectItem project={project_}
+            usersSS={usersSS} deleteProject={deleteProject} />)}
+        </table>
+        <Link to='/projects/create'>Create project</Link>
+      </div>
+    )
+  }
+
+
+
+export default ProjectsList
