@@ -24,7 +24,6 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view as get_schema_view_base
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView, TokenVerifyView)
-
 from todoapp.views import ProjectModelViewSet, ToDoModelViewSet
 from usersapp.views import CustomUserModelViewSet
 
