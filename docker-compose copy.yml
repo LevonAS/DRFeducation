@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+    drf-db:
+        image: postgres:13.7
+        hostname: drf-db
+        container_name: drf-db
+        privileged: true
+        ports:
+          - 5432:5432
+        environment:
+          POSTGRES_USER: dante
+          POSTGRES_PASSWORD: dante123456
+          POSTGRES_DB: library
+        restart: always
+
+    drf-backend:
+        hostname: drf-backend
+        container_name: drf-backend
+        build:
+          context: .
+        ports:
+          - 8080:8080
+        command: bash -c "
+          echo "db start_1" && ./wait-for-postgres.sh drf-db && echo "db start_2" && python manage.py runserver 0.0.0.0:8080"
+        depends_on:
+            - drf-db
+
+    # drf-adminer:
+    #     image: adminer:4.7.8-standalone
+    #     hostname: drf-adminer
+    #     container_name: drf-adminer
+    #     restart: always
+    #     ports:
+    #         - 8080:8080
+    #     depends_on:
+    #         - drf-db

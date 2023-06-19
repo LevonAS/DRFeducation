@@ -35,11 +35,11 @@ ALLOWED_HOSTS = ["*"]
 #         "127.0.0.1",
 #     ]
 
+# CORS_ALLOWED_ORIGINS = ["*"]
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://192.168.42.140:3000",
-    "http://192.168.42.1:3000",
 ]
 
 # Application definition
@@ -145,6 +145,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'library',
+#         'USER': 'dante',
+#         'PASSWORD': 'dante123456',
+#         'HOST': 'drf-db',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
