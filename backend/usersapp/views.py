@@ -8,7 +8,8 @@ from rest_framework.permissions import BasePermission
 from rest_framework.viewsets import GenericViewSet
 
 from .models import CustomUser
-from .serializers import CustomUserFullModelSerializer, CustomUserModelSerializer
+from .serializers import (CustomUserFullModelSerializer,
+                          CustomUserModelSerializer)
 
 
 class StaffOnly(BasePermission):
@@ -28,7 +29,7 @@ class CustomUserPagination(PageNumberPagination):
 #     pagination_class = CustomUserLimitOffsetPagination
 
 
-class CustomUserModelViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, GenericViewSet):
+class CustomUserModelViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin, GenericViewSet):
     # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     # permission_classes = [AllowAny]
     # permission_classes = [IsAdminUser]

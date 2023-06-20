@@ -3,7 +3,6 @@ from django.test import TestCase
 from mixer.backend.django import mixer
 from rest_framework import status
 from rest_framework.test import APIClient, APIRequestFactory, APITestCase
-
 from usersapp.models import CustomUser
 
 from .models import Project, ToDo
