@@ -19,7 +19,8 @@ import Cookies from "universal-cookie";
 // eslint-disable-next-line
 import { HashRouter, BrowserRouter, Switch, Routes, Route, Link, NavLink, Redirect, Navigate } from "react-router-dom"
 
-const API_URL = 'http://185.182.111.196:8000/api'
+// const API_URL = 'http://185.182.111.196:8000/api'
+const API_URL = 'http://127.0.0.1:8000/api'
 // objectsPerPage - определяет количество забираемых объектов с API,
 // этот параметр можно согласовать с возможной пагинацией уже в REST.
 // Не знаю как загнать в него значение .count страницы без 
