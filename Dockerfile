@@ -1,6 +1,7 @@
 FROM python:3.10.11-buster
 
-RUN apt-get update
+RUN apt-get update \
+&& apt-get install -y postgresql postgresql-contrib libpq-dev python3-dev
 
 RUN pip3 install --upgrade pip
 
